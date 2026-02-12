@@ -39,7 +39,14 @@ jobs:
           GH_TOKEN: ${{ secrets.BOOTC_MAN_RELEASE_TOKEN }}
         run: |
           cd "$BOTTLE_DIR"
-          ls -la *.bottle.*
+          # Rename: brew bottle uses double-dash (bootc-man--0.1.0)
+          # but Homebrew download URLs use single-dash (bootc-man-0.1.0)
+          for f in *--*.bottle*.tar.gz; do
+            newname="${f/--/-}"
+            echo "Renaming ${f} -> ${newname}"
+            mv "$f" "$newname"
+          done
+          ls -la *.bottle*
           for f in *.bottle*.tar.gz; do
             echo "Uploading ${f}..."
             gh release upload "${{ inputs.tag }}" "${f}" \
