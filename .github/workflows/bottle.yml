@@ -1,0 +1,57 @@
+name: Build Homebrew Bottles
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag (e.g. v0.1.0)'
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  bottle:
+    name: Build bottle (macOS arm64)
+    runs-on: macos-15
+    steps:
+      - name: Set up Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@main
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build bottle
+        run: |
+          brew install --build-bottle tnk4on/bootc-man/bootc-man
+
+      - name: Create bottle
+        run: |
+          brew bottle --json \
+            --root-url="https://github.com/tnk4on/bootc-man/releases/download/${{ inputs.tag }}" \
+            tnk4on/bootc-man/bootc-man
+
+      - name: Upload bottle to GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.BOOTC_MAN_RELEASE_TOKEN }}
+        run: |
+          # Upload bottle tar.gz to the main repo's release
+          for f in *.bottle.tar.gz; do
+            echo "Uploading ${f}..."
+            gh release upload "${{ inputs.tag }}" "${f}" \
+              --repo tnk4on/bootc-man \
+              --clobber
+          done
+
+      - name: Update formula with bottle block
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Merge bottle JSON into the formula
+          brew bottle --merge --write --no-commit *.bottle.json
+
+          # Commit and push the updated formula
+          cd "$(brew --repository tnk4on/bootc-man)"
+          git add Formula/bootc-man.rb
+          git commit -m "bootc-man ${{ inputs.tag }}: add bottle for arm64_sequoia"
+          git push origin main
