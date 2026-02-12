@@ -40,7 +40,7 @@ jobs:
         run: |
           cd "$BOTTLE_DIR"
           ls -la *.bottle.*
-          for f in *.bottle.tar.gz; do
+          for f in *.bottle*.tar.gz; do
             echo "Uploading ${f}..."
             gh release upload "${{ inputs.tag }}" "${f}" \
               --repo tnk4on/bootc-man \
@@ -52,7 +52,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd "$BOTTLE_DIR"
-          brew bottle --merge --write --no-commit *.bottle.json
+          brew bottle --merge --write --no-commit *.bottle*.json
 
           # Commit and push the updated formula
           cd "$(brew --repository tnk4on/bootc-man)"
