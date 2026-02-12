@@ -3,7 +3,7 @@ class BootcMan < Formula
   desc "CLI tool for bootable container image testing and verification"
   homepage "https://github.com/tnk4on/bootc-man"
   url "https://github.com/tnk4on/bootc-man/archive/refs/tags/v0.1.0.tar.gz"
-  sha256 "1c6729640b0b2789471c308899aa9b149c177e55b933ab1fcd74678e3c2bed2d"
+  sha256 "eee763f5bbb6db4d8988772c92d11f5a92d855befe1d087a734d362971fe5915"
   license "Apache-2.0"
 
   depends_on "go" => :build
