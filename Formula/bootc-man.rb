@@ -8,8 +8,8 @@ class BootcMan < Formula
 
   bottle do
     root_url "https://github.com/tnk4on/bootc-man/releases/download/v0.1.0"
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e63a4c9e4f2d256720fbaedbed6c873d137133efd017afe88226e243e06d1f98"
+    rebuild 2
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "889e68bbc69c02da58ad8b5eeb878ad051c87825e28c5a0db0ca458d826f02f6"
   end
 
   depends_on "go" => :build
