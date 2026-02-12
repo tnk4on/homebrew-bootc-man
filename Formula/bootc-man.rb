@@ -3,13 +3,9 @@ class BootcMan < Formula
   desc "CLI tool for bootable container image testing and verification"
   homepage "https://github.com/tnk4on/bootc-man"
   url "https://github.com/tnk4on/bootc-man/archive/refs/tags/v0.1.0.tar.gz"
-  sha256 "eee763f5bbb6db4d8988772c92d11f5a92d855befe1d087a734d362971fe5915"
+  sha256 "7d40fd30ace4bbc020a219c0d7c021a01e616484ac60e340218f1366368eca31"
   license "Apache-2.0"
 
-  bottle do
-    root_url "https://github.com/tnk4on/bootc-man/releases/download/v0.1.0"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "1f500c272816f44496957246bc8764bbe4e7aff945b96da326b9d8708c43f4ec"
-  end
 
 
 
