@@ -29,7 +29,7 @@ jobs:
         run: |
           mkdir -p "$HOME/bottles"
           cd "$HOME/bottles"
-          brew bottle --json \
+          brew bottle --json --no-rebuild \
             --root-url="https://github.com/tnk4on/bootc-man/releases/download/${{ inputs.tag }}" \
             tnk4on/bootc-man/bootc-man
           echo "BOTTLE_DIR=$HOME/bottles" >> "$GITHUB_ENV"

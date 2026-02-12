@@ -6,11 +6,6 @@ class BootcMan < Formula
   sha256 "eee763f5bbb6db4d8988772c92d11f5a92d855befe1d087a734d362971fe5915"
   license "Apache-2.0"
 
-  bottle do
-    root_url "https://github.com/tnk4on/bootc-man/releases/download/v0.1.0"
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "c2a54c4f309ba0fc0678e666670e6463d51d78b4c3abfc3300669ada7708c213"
-  end
 
 
   depends_on "go" => :build
