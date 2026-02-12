@@ -1,26 +1,20 @@
 # Homebrew Formula for bootc-man
-# This file is a template for the Homebrew Tap repository.
-# After creating the tnk4on/homebrew-bootc-man repository,
-# place this file at Formula/bootc-man.rb in that repository.
-#
-# Reference: Podman's formula at
-# https://github.com/Homebrew/homebrew-core/blob/master/Formula/p/podman.rb
-
 class BootcMan < Formula
   desc "CLI tool for bootable container image testing and verification"
   homepage "https://github.com/tnk4on/bootc-man"
   url "https://github.com/tnk4on/bootc-man/archive/refs/tags/v0.1.0.tar.gz"
-  sha256 "PLACEHOLDER_SHA256"
+  sha256 "1c6729640b0b2789471c308899aa9b149c177e55b933ab1fcd74678e3c2bed2d"
   license "Apache-2.0"
 
   depends_on "go" => :build
+  depends_on :macos
   depends_on "podman"
 
   # gvproxy (same pattern as Podman formula)
   resource "gvproxy" do
     on_macos do
       url "https://github.com/containers/gvisor-tap-vsock/archive/refs/tags/v0.8.7.tar.gz"
-      sha256 "PLACEHOLDER_GVPROXY_SHA256"
+      sha256 "ef9765d24bc3339014dd4a8f2e2224f039823278c249fb9bd1416ba8bbab590b"
     end
   end
 
@@ -28,12 +22,12 @@ class BootcMan < Formula
   resource "vfkit" do
     on_macos do
       url "https://github.com/crc-org/vfkit/archive/refs/tags/v0.6.1.tar.gz"
-      sha256 "PLACEHOLDER_VFKIT_SHA256"
+      sha256 "e35b44338e43d465f76dddbd3def25cbb31e56d822db365df9a79b13fc22698c"
     end
   end
 
   def install
-    system "make", "build"
+    system "make", "build", "VERSION=#{version}"
     bin.install "bin/bootc-man"
 
     # Build and install gvproxy
